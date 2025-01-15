@@ -18,7 +18,7 @@
     width: 60vw;
     grid-column: 2/3;
     grid-row: 2/3;
-    border: 5px solid rgb(70, 2, 2) ;
+    border: 5px solid rgb(2, 95, 2) ;
     gap: 5px;
     padding: 10px;
     align-content: space-around;
@@ -46,6 +46,14 @@
 .animes {
     width: 200px;
     text-align: center;
+}
+.btn-delete-fav{
+    height: 24px;
+    text-align: center;
+    border-radius: 50px;
+    background-color: rgb(70, 2, 2);
+    color: white;
+    transform: translate(-80px, 10px);
 
 }
 
@@ -66,4 +74,23 @@
     text-align: center;
     margin-bottom: 5px;
 }
+.btn-reset-fav{
+    color: white;
+    background-color: rgb(241, 8, 8);
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+}
 
+.btns-next-prev {
+    text-align: center;
+}
+.btn-prev, .btn-next {
+    margin-bottom: 10px;
+}
+.btn-prev {
+    margin-right: 5px;
+}
+.btn-next {
+    margin-left: 5px;
+}
