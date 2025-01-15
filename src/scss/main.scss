@@ -1,5 +1,26 @@
 @import 'core/variables';
 
+body {
+    font-family: $font-main;
+    background-color: $color-bg;
+    padding-left: 10px;
+}
+
+.input {
+    width: 50vw;
+    padding: 6px;
+    border: 2px solid black;
+}
+
+.btn-reset-fav, .btn-search, .btn-reset {
+    color: black;
+    background-color: $color-secondary;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+
 .hidden {
     display: none;
 };
@@ -18,7 +39,7 @@
     width: 60vw;
     grid-column: 2/3;
     grid-row: 2/3;
-    border: 5px solid rgb(2, 95, 2) ;
+    border: 5px solid black ;
     gap: 5px;
     padding: 10px;
     align-content: space-around;
@@ -28,32 +49,40 @@
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    width: 30vw;
+    align-items: center;
+    width: 24vw;
     grid-column: 1/2;
     grid-row: 2/3;
     border: 5px solid black;
     gap: 5px;
     padding: 10px;
+    padding-left: 20px;
     
 }
 
 .favorite {
-    background-color: palevioletred;
-    color: darkblue;
-    border: 5px solid darkblue;
+    background-color: $color-fav-secondary;
+    color: $color-fav;
+    border: 5px solid $color-fav;
 }
 
 .animes {
-    width: 200px;
+    width: 180px;
     text-align: center;
 }
+.fav-anime {
+    padding: 5px;
+    border: 4px solid $color-fav-secondary;
+}
+
 .btn-delete-fav{
     height: 24px;
     text-align: center;
     border-radius: 50px;
-    background-color: rgb(70, 2, 2);
+    background-color: $color-fav;
     color: white;
-    transform: translate(-80px, 10px);
+    transform: translate(-90px, 10px);
+    border: 1px solid $color-fav;
 
 }
 
@@ -74,13 +103,7 @@
     text-align: center;
     margin-bottom: 5px;
 }
-.btn-reset-fav{
-    color: white;
-    background-color: rgb(241, 8, 8);
-    border-radius: 10px;
-    padding: 10px;
-    font-weight: bold;
-}
+
 
 .btns-next-prev {
     text-align: center;

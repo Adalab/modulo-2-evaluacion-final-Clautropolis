@@ -99,7 +99,7 @@ function renderFavoriteAnimes(favorites) {
             favoriteAnimes.innerHTML += 
                 `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
                     <button class="btn-delete-fav js-btn-delete-fav">X</button>
-                    <article>
+                    <article  class=" fav-anime">
                         <h3>${favoriteAnime.title}</h3>
                         <img src="https://placehold.co/200x300" alt="${favoriteAnime.title}"/>
                     </article>
@@ -107,8 +107,8 @@ function renderFavoriteAnimes(favorites) {
         } else {
             favoriteAnimes.innerHTML += 
                 `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
-                <button class="btn-delete-fav js-btn-delete-fav">X</button>
-                    <article>
+                    <button class="btn-delete-fav js-btn-delete-fav">X</button>
+                        <article class=" fav-anime">
                         <h3>${favoriteAnime.title}</h3>
                         <img src="${favoriteAnime.images.jpg.image_url}" alt="${favoriteAnime.title}" class="image-animes"/>
                     </article>
@@ -143,7 +143,7 @@ resetFavorites();
     handleSearchPages;
 }
 
-
+*/
 //Esta es mi funcion de handleSearch sin lo de la paginacion
 
 function handleSearch(event){
@@ -157,8 +157,8 @@ function handleSearch(event){
         localStorage.setItem('animesServer', JSON.stringify(animes));
     });
 }
-    */
-
+    
+/*
 //Esto es lo que me ha dicho GPT para lo de la paginacion:
 function handleSearch(event){
     event.preventDefault();
@@ -232,7 +232,7 @@ btnNextPage.addEventListener('click', goToNextPage);
 btnPrevPage.addEventListener('click', goToPrevPage);
 
 //Hasta aqui dura la paginación que si veo que tal lo borro y listo
-
+*/
 btnSearch.addEventListener('click', handleSearch);
 
 //Reset button
