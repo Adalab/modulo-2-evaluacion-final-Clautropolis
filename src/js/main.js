@@ -4,13 +4,41 @@ const input = document.querySelector('.js-input');
 const btnSearch = document.querySelector('.js-btn-search');
 const btnReset = document.querySelector('.js-btn-reset');
 const listAnimes = document.querySelector('.js-list');
+const favoriteAnimes = document.querySelector('.js-favorite-list');
+const favTitle = document.querySelector('.js-fav-title');
+const searchTitle = document.querySelector('.js-search-title');
 
 let animes = [];
+let favAnimes = [];
+
+const loadFavoritesFromStorage = () => {
+    const dataAnimesLS = localStorage.getItem('favoritesAnimesServer');
+    if (dataAnimesLS){
+        favAnimes = JSON.parse(dataAnimesLS);
+        renderFavoriteAnimes(favAnimes);
+    }
+};
+
+loadFavoritesFromStorage();
 
 function handleClickFav(event) {
     event.preventDefault();
-    const animeClicked = event.currentTarget.id;
-    //Me he quedado por aqui para hacer algo despues de pinchar en los lis. Tengo que hacer que se cambie la clase y se pongan en favoritos dentro de un array de favoritos. 
+    const animeClicked = parseInt(event.currentTarget.id);
+    const animeSelected = animes.find((eachAnime) => eachAnime.mal_id === animeClicked);
+    const indexFavSelected = favAnimes.findIndex((anime) => anime.mal_id === animeClicked);
+    console.log(animeSelected);
+
+    if (indexFavSelected === -1) {
+        favAnimes.push(animeSelected);
+    } else {
+
+    };
+    
+    renderAnimes(animes);
+    renderFavoriteAnimes(favAnimes);
+
+    console.log(favAnimes);
+    
 }
 
 const listenerAnimeCards = () => {
@@ -24,12 +52,17 @@ const listenerAnimeCards = () => {
 //Pintar la búsqueda
 
 function renderAnimes(searchAnimes) {
+    
     listAnimes.innerHTML = '';
+    
     for (const anime of searchAnimes) {
+
+        const findFavAnime = favAnimes.find((animeFav) => animeFav.mal_id === anime.mal_id);
+        let css = findFavAnime ? "favorite" : '';
 
         if(anime.images.jpg.image_url === "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png") {
             listAnimes.innerHTML += 
-                `<li id="${anime.mal_id}" class="animes js-anime">
+                `<li id="${anime.mal_id}" class="${css} animes js-anime">
                     <article>
                         <h3>${anime.title}</h3>
                         <img src="https://placehold.co/200x300" alt="${anime.title}"/>
@@ -37,7 +70,7 @@ function renderAnimes(searchAnimes) {
                 </li>`
         } else {
             listAnimes.innerHTML += 
-                `<li id="${anime.mal_id}" class="animes js-anime">
+                `<li id="${anime.mal_id}" class="${css} animes js-anime">
                     <article>
                         <h3>${anime.title}</h3>
                         <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="image-animes"/>
@@ -48,6 +81,40 @@ function renderAnimes(searchAnimes) {
         
     }
 }
+
+function renderFavoriteAnimes(favorites) {
+    
+    favoriteAnimes.innerHTML = '';
+
+    for (const favoriteAnime of favorites) {
+        
+        if(favoriteAnime.images.jpg.image_url === "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png") {
+            favoriteAnimes.innerHTML += 
+                `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
+                    <article>
+                        <h3>${favoriteAnime.title}</h3>
+                        <img src="https://placehold.co/200x300" alt="${favoriteAnime.title}"/>
+                    </article>
+                </li>`
+        } else {
+            favoriteAnimes.innerHTML += 
+                `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
+                    <article>
+                        <h3>${favoriteAnime.title}</h3>
+                        <img src="${favoriteAnime.images.jpg.image_url}" alt="${favoriteAnime.title}" class="image-animes"/>
+                    </article>
+                </li>`
+        }
+
+        localStorage.setItem('favoritesAnimesServer', JSON.stringify(favAnimes));
+        
+    }  
+    
+}
+
+
+
+
 
 //Llamada a la API
 
@@ -64,10 +131,6 @@ function handleSearch(event){
 }
 
 btnSearch.addEventListener('click', handleSearch);
-
-
-
-
 
 
 //Reset button
