@@ -40,7 +40,7 @@ function renderAnimes(searchAnimes) {
                 `<li id="${anime.mal_id}" class="animes js-anime">
                     <article>
                         <h3>${anime.title}</h3>
-                        <img src="${anime.images.jpg.image_url}" alt="${anime.title}"/>
+                        <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="image-animes"/>
                     </article>
                 </li>`
         }
@@ -51,7 +51,8 @@ function renderAnimes(searchAnimes) {
 
 //Llamada a la API
 
-function handleSearch(){
+function handleSearch(event){
+    event.preventDefault();
     const inputValue = input.value.toLowerCase().trim();
     fetch(`https://api.jikan.moe/v4/anime?q=${inputValue}`)
     .then((response) => response.json())

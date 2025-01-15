@@ -4,12 +4,23 @@
     display: none;
 };
 
+.list{
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    list-style-type: none;
+}
+
 .favorite {
     background-color: palevioletred;
     color: darkblue;
 }
 
 .animes {
-    background-color: darkgrey;
+    border: 5px solid darkgrey;
     color: rgb(70, 2, 2);
+}
+
+.image-animes{
+    width: 100px;
 }
