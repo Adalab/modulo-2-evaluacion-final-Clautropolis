@@ -29,6 +29,7 @@ loadFavoritesFromStorage();
 function handleClickFav(event) {
     event.preventDefault();
     const animeClicked = parseInt(event.currentTarget.id);
+
     const animeSelected = animes.find((eachAnime) => eachAnime.mal_id === animeClicked);
     const indexFavSelected = favAnimes.findIndex((anime) => anime.mal_id === animeClicked);
 
@@ -146,7 +147,7 @@ resetFavorites();
 */
 //Esta es mi funcion de handleSearch sin lo de la paginacion
 
-function handleSearch(event){
+/*function handleSearch(event){
     event.preventDefault();
     const inputValue = input.value.toLowerCase().trim();
     fetch(`https://api.jikan.moe/v4/anime?q=${inputValue}`)
@@ -157,13 +158,13 @@ function handleSearch(event){
         localStorage.setItem('animesServer', JSON.stringify(animes));
     });
 }
-    
-/*
+ */   
+
 //Esto es lo que me ha dicho GPT para lo de la paginacion:
 function handleSearch(event){
     event.preventDefault();
     const inputValue = input.value.toLowerCase().trim();
-    fetchAnimes(inputValue, currentPage);
+    fetchAnimes(inputValue, 1);
 }
 
 
@@ -173,16 +174,16 @@ function fetchAnimes(query, page) {
     if (page > 1) {
         url += `&page=${page}`
     }
-
+    console.log(url);
     fetch(url)
-    .then((response) => response.json)
+    .then((response) => response.json())
     .then((data) => {
         console.log('API Response: ', data )
         animes = data.data;
         renderAnimes(animes);
 
         if(data.pagination && data.pagination.last_visible_page) {
-            totalPages = data.pagination.last_page;
+            totalPages = data.pagination.last_visible_page;
             console.log("Total Pages:", totalPages);
         } else {
             console.log("Pagination not available or only one page");
@@ -232,7 +233,7 @@ btnNextPage.addEventListener('click', goToNextPage);
 btnPrevPage.addEventListener('click', goToPrevPage);
 
 //Hasta aqui dura la paginación que si veo que tal lo borro y listo
-*/
+
 btnSearch.addEventListener('click', handleSearch);
 
 //Reset button
