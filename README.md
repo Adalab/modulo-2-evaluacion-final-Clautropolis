@@ -1,125 +1,40 @@
 ![Adalab](https://beta.adalab.es/resources/images/adalab-logo-155x61-bg-white.png)
 
-# Adalab web starter kit
+# Búsqueda de series anime
 
-Ahoy! Este es nuestro Starter Kit creado en **node y vite**. ¿Y qué es un Starter kit? Pues es una **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
+Este proyecto consiste en la creación de una página web que sirva para buscar animes, agregarlos a favoritos, eliminarlos y gestionarlos de manera interactiva. Para trabajar con los datos de búsqueda los hemos guardado en el navegador mediante localStorge.
+La información para llevar a cabo el proyecto se obtiene de la API pública **Jikan** a la que se accede mediante este link: [Jikan] https://api.jikan.moe/v4/anime?q= y se puede encontrar toda la información sobre como utilizar la API en este enlace: [API] https://docs.api.jikan.moe/#section/Information
 
-Este Kit incluye un motor de plantillas HTML, el preprocesador SASS y un servidor local y muchas cosas más. El Kit nos ayuda a trabajar más cómodamente, nos automatiza tareas.
+## Características
+* Búsqueda de animes: Permite buscar animes por nombre y mostrar los resultados de la búsqueda
+* Favoritos: Puedes agregar los animes a favoritos y verlos en una columna exclusiva de los elementos favoritos.
+* Almacenamiento: Los favoritos se almacenan en el localStorage para que al hacer otra búsqueda o reiniciar la página no se pierda lo marcado.
+* Resetear: Existe la opción de resetear la columna de favoritos exclusivamente o de resetear la página por completo, incluyendo el input de búsqueda y la columna de resultados.
+* Paginación: *Actualmente en desarrollo.* Si la información que devuelve la API tiene más de una página, se pueden navegar entre ellas.
 
-En el Kit hay 3 tipos de ficheros y carpetas:
+## Funcionalidad
+1. Buscar animes: Al ingresar un nombre en el input de búsqueda y clicar sobre el botón **buscar**, se realiza la solicitud a la API de Jikan. Los resultados se muestran en la sección de *resultados* con el título y la imagen del anime.
+2. Agregar favoritos: Haciendo click sobre cualquiera de los animes de los resultados, se marcan como favoritos (se cambia el color de texto y de fondo para resaltar su categoría de favorito) y se pintan en una columna exclusiva para los animes favoritos. 
+3. Eliminar de favoritos. Existen dos opciones para eliminar un anime de *favoritos*. La primera es clicando en el botón de la **X** que aparece al lado de la imagen del anime en la columna de favoritos, y la otra es clicando sobre el anime en la columna de búsqueda. Es decir, al igual que al hacer click en la columna de búsqueda se añadía a favoritos, si hacemos click una vez más se elimina. No solo se elimina de la columna de favoritos, sino que también vuelve a su estilo inicial, sin el fondo y el borde resaltados, propio de los elementos marcados como favoritos.
+4. Almacenamiento. Cuando guardamos los elementos en favoritos, se guarda la información en el loclStorage, con el fin de que al hacer otra búsqueda o vovler a cargar la página, no se pierdan los elementos seleccionados. Este almacenamiento se va actualizando según se añaden o se eliminan los animes de favoritos. 
+5. Resetear los favoritos y la página. Existe un botón de **Reset favoritos** que sirve para borrar todos los favoritos de golpe. Como ocurría antes, esta información se actualiza en el localStorage para que en ese caso no aparezca ningún favorito al recargar la página. Así mismo, existe un botón de **Reset** cuya función es la de resetear la página al completo. Se vacían tanto las columnas de favoritos y búsqueda como el input de búsqueda. La información también se elimina del localStorage para que la página quede totalmente limpia.
 
-- Los ficheros que están sueltos en la raíz del repositorio, como vite.config.js, package.json... Son la configuración del proyecto y no necesitamos modificarlos (excepto este README.md, para describir tu proyecto).
-- La carpeta `src/`: son los ficheros de nuestra página web, como HTML, CSS, JS...
-- La carpeta `public/`, que tiene fichero estáticos como imágenes, fuentes, favicon, librerías de JavaScript antiguas (jQuery, ...)
-- Y la carpeta `docs/`, que es generada automáticamente cuando arrancamos el proyecto. El Kit lee los ficheros que hay dentro de `src/` y `public/`, los procesa y los genera dentro de `public/` y `docs/`.
 
-## Guía de inicio rápido
+## Estructura del proyecto
+Para llevar a cabo el proyecto hemos utilizado el Adalab Web Starter Kit, que define una estructura de proyecto concreta.
+* index.html: Al ser un proyecto con pocos elementos en el html (ya que la mayoría se pintan mediante JS) no hemos utilizado partials, sino que hemos puesto toda la información en el index.html. Aquí también hemos enlazado los ficheros necesarios de JavaScript y de scss.
+* Scss: En este caso hemos utilizado algunos partials para mejorar la claridad del proyecto. Hemos creado un archivo de reset y varibales, que se almacenan en el core, y otro de body, donde hemos puesto las especificaciones de estilo como tal.
+* Javascript: La mayor parte del proyecto se ha centrado en el desarrollo de Javascript. Hemos creado un único archivo de main.js en el que encontramos toda la información relacionada con la funcionalidad de la web.
+* README: En este archivo se documenta toda la información sobre el proyecto.
 
-> **NOTA:** Necesitas tener instalado [Node JS](https://nodejs.org/) con una versión superior a la 14 para trabajar con este Starter Kit:
+## Cómo ejecutar el proyecto
+Para ejecutar el proyecto, clona este repositorio en tu ordenador con **git clone <URL>**. Al haberse realizado con el Adalab Web Starter Kit, deberás hacer un **npm install** en tu consola y con un **npm start** se ejecutará en el servidor para ver los cambios en tiempo real.
 
-### Pasos a seguir cada vez que queremos arrancar un proyecto desde cero:
 
-1. **Crea tu propio repositorio.**
-1. Descarga este **Starter kit desde GitHub**.
-   - No recomendamos que clones este repo ya que no podrás añadir commits.
-1. **Copia todos los ficheros** de este Starter kit en la carpeta raíz de tu repositorio.
-   - Recuerda que debes copiar **también los ficheros ocultos** que comienzan por un punto.
-   - Si has decidido clonar este repo, no debes copiar la carpeta `.git`. Si lo haces estarás machacando tu propio repositorio.
-1. **Abre una terminal** en la carpeta raíz de tu repositorio.
-1. **Instala las dependencias** locales ejecutando en la terminal el comando:
+## Tecnologías utilizadas
+* HTML5: Para llevar a cabo la estructura de la web.
+* SCSS: Para definir los estilos y toda la parte visual del proyecto.
+* JavaScript: Para definir toda la lógica de interacción, las funcionalidades de los distintos elementos de la web, así como las llamadas a la API y el almacenamiento local.
 
-```bash
-npm install
-```
 
-### Pasos para arrancar el proyecto:
 
-Una vez hemos instalado las dependencias, vamos a arrancar el proyecto. **El proyecto hay que arrancarlo cada vez que te pongas a programar.** Para ello ejecuta el comando:
-
-```bash
-npm run dev
-```
-
-Este comando:
-
-- **Abre una ventana de Chrome y muestra tu página web**, al igual que hace el plugin de VS Code Live Server (Go live).
-- También **observa** todos los ficheros que hay dentro de la carpeta `src/`, para que cada vez que modifiques un fichero **refresca tu página en Chrome**.
-- También **procesa los ficheros** HTML, SASS / CSS y JS. Por ejemplo:
-   - Convierte los ficheros SASS en CSS.
-   - Combina los diferentes ficheros de HTML y los agrupa en uno o varios ficheros HTML.
-
-Después de ejecutar `npm run dev` ya puedes empezar a editar todos los ficheros que están dentro de la carpeta `src/` y programar cómodamente.
-
-### Pasos para publicar el proyecto en GitHub Pages:
-
-Para generar tu página para producción ejecuta el comando:
-
-```bash
-npm run build
-```
-
-Y a continuación:
-
-1. Sube a tu repo la carpeta `docs/` que se te acaba de generar.
-1. Entra en la pestaña `settings` de tu repo.
-1. Y en el apartado de GitHub Pages activa la opción **master branch /docs folder**.
-1. Y ya estaría!!!
-
-Además, los comandos:
-
-```bash
-npm run push-docs
-```
-o
-
-```bash
-npm run deploy
-```
-
-son un atajo que nos genera la versión de producción y hace push de la carpeta `docs/` del tirón. Te recomendamos ver el fichero `package.json` para aprender cómo funciona.
-<!--
-## Flujo de archivos con Gulp
-
-Estas tareas de Gulp producen el siguiente flujo de archivos:
-
-![Gulp flow](./gulp-flow.png)
-
-## `gulpfile.js` y `config.json`
-
-Nuestro **gulpfile.js** usa el fichero `config.json` de configuración con las rutas de los archivos a generar / observar.
-
-De esta manera separarmos las acciones que están en `gulpfile.js` de la configuración de las acciones que están en `config.json`.
--->
-## Estructura de carpetas
-
-La estructura de carpetas tiene esta pinta:
-
-```
-src
- ├─ api // los ficheros de esta carpeta se copian en public/api/
- |  └─ data.json
- ├─ images
- |  └─ logo.jpg
- ├─ js // los ficheros de esta carpeta se concatenan en el fichero main.js y este se guarda en public/main.js
- |  ├─ main.js
- |  └─ events.js
- ├─ scss
- |  ├─ components
- |  ├─ core
- |  ├─ layout
- |  └─ pages
- └─ html
-    └─ partials
-```
-
-> **NOTA:** Los partials de HTML y SASS del proyecto son orientativos. Te recomendamos usar los que quieras, y borrar los que no uses.
-<!--
-## Vídeotutoriales del Starter kit
-
-- [Qué es, trabajar con la versión de desarrollo y rutas relativas](https://www.youtube.com/watch?v=XwvhXvBijos)
-- [Migración de un proyecto, trabajar con la versión de producción y GitHub Pages](https://www.youtube.com/watch?v=qqGClcgt9Uc)
-- [Motor de plantillas](https://www.youtube.com/watch?v=4GwXOJ045Zg)
--->
-## Falta algo?
-
-Echas de menos que el kit haga algo en concreto? Pidelo sin problema a través de las issues o si te animas a mejorarlo mándanos un PR :)

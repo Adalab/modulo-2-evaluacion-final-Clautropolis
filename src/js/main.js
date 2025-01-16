@@ -71,15 +71,15 @@ function renderAnimes(searchAnimes) {
             listAnimes.innerHTML += 
                 `<li id="${anime.mal_id}" class="${css} animes js-anime">
                     <article>
-                        <h3>${anime.title}</h3>
-                        <img src="https://placehold.co/200x300" alt="${anime.title}"/>
+                        <h3 class="anime-title">${anime.title}</h3>
+                        <img src="https://placehold.co/120x180" alt="${anime.title}" class="image-animes"/>
                     </article>
                 </li>`
         } else {
             listAnimes.innerHTML += 
                 `<li id="${anime.mal_id}" class="${css} animes js-anime">
                     <article>
-                        <h3>${anime.title}</h3>
+                        <h3 class="anime-title">${anime.title}</h3>
                         <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="image-animes"/>
                     </article>
                 </li>`
@@ -100,8 +100,8 @@ function renderFavoriteAnimes(favorites) {
                 `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
                     <button class="btn-delete-fav js-btn-delete-fav">X</button>
                     <article  class=" fav-anime">
-                        <h3>${favoriteAnime.title}</h3>
-                        <img src="https://placehold.co/200x300" alt="${favoriteAnime.title}"/>
+                        <h3 class="anime-title">${favoriteAnime.title}</h3>
+                        <img src="https://placehold.co/120x180" alt="${favoriteAnime.title}" class="image-animes"/>
                     </article>
                 </li>`
         } else {
@@ -109,7 +109,7 @@ function renderFavoriteAnimes(favorites) {
                 `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
                     <button class="btn-delete-fav js-btn-delete-fav">X</button>
                         <article class=" fav-anime">
-                        <h3>${favoriteAnime.title}</h3>
+                        <h3 class="anime-title">${favoriteAnime.title}</h3>
                         <img src="${favoriteAnime.images.jpg.image_url}" alt="${favoriteAnime.title}" class="image-animes"/>
                     </article>
                 </li>`
@@ -241,9 +241,13 @@ function handleReset () {
     input.value = '';
     listAnimes.innerHTML = '';
     favoriteAnimes.innerHTML = '';
-    currentPage = 1;
+    animes = [];
+    favAnimes = [];
+    //currentPage = 1;
     localStorage.removeItem('favoritesAnimesServer');
     localStorage.removeItem('animesServer');
+    renderAnimes(animes);
+    renderFavoriteAnimes(favAnimes);
 
 }
 
