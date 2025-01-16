@@ -43,7 +43,7 @@ const loadFavoritesFromStorage = () => {
 
 loadFavoritesFromStorage();
 
-//La primera version de handleCLickFav que yo tenia
+
 
 function handleClickFav(event) {
     event.preventDefault();
@@ -78,56 +78,6 @@ function handleClickBtnDelete(event) {
     localStorage.setItem('favoritesAnimesServer', JSON.stringify(favAnimes));
     
 }
-
-/*function handleClickFav(event) {
-    event.preventDefault();
-    const animeClicked = parseInt(event.currentTarget.id);
-    const animeSelected = animes.find((eachAnime) => eachAnime.mal_id === animeClicked);
-    const indexFavSelected = favAnimes.findIndex((anime) => anime.mal_id === animeClicked);
-
-    if (animeSelected) {
-        if(indexFavSelected === -1) {
-            favAnimes.push(animeSelected)
-        } else {
-            favAnimes.splice(indexFavSelected, 1);
-        }
-    } else {
-        const animeSelectedFav = favAnimes.find((eachFavAnime) => eachFavAnime.mal_id === animeClicked);
-        if (animeSelectedFav) {
-            const indexFavSelected = favAnimes.findIndex((anime) => anime.mal_id === animeClicked)
-            favAnimes.splice(indexFavSelected, 1);
-        } else {
-            console.error ('no se encontró')
-        }
-    }
-*/
-  /*  if(!animeSelected) {
-       const animeSelectedFav = favAnimes.find((eachFavAnime) => eachFavAnime.mal_id === animeClicked);
-
-        if(animeSelectedFav) {
-            favAnimes.splice(indexFavSelected, 1);
-            console.log('Eliminando de favoritos:', animeSelectedFav);
-        }
-
-    } else {
-
-        if (indexFavSelected === -1) {
-            console.log('Añadiendo a favoritos:', animeSelected);
-            favAnimes.push(animeSelected);
-        } else {
-        favAnimes.splice(indexFavSelected, 1);
-        console.log('Eliminando de favoritos:', animeSelected);
-        }
-    };
-   
-    renderAnimes(animes);
-    renderFavoriteAnimes(favAnimes);
-    localStorage.setItem('favoritesAnimesServer', JSON.stringify(filteredFavAnimes));
-    listenerAnimeCards();
-    
-}
- */
-
 
 
 //Pintar la búsqueda
@@ -286,7 +236,6 @@ function goToPrevPage() {
 btnNextPage.addEventListener('click', goToNextPage);
 btnPrevPage.addEventListener('click', goToPrevPage);
 
-//Hasta aqui dura la paginación que si veo que tal lo borro y listo
 
 btnSearch.addEventListener('click', handleSearch);
 
