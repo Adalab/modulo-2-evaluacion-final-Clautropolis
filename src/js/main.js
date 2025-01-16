@@ -16,15 +16,34 @@ let favAnimes = [];
 let currentPage = 1;
 let totalPages = 1;
 
+const listenerAnimeCards = () => {
+    const allAnimes = document.querySelectorAll('.js-anime');
+    for (const eachAnime of allAnimes) {
+        eachAnime.addEventListener('click', handleClickFav);
+    };
+};
+
+const listenerDeleteBtn = () => {
+    const btnDeleteFav = document.querySelectorAll('.js-btn-delete-fav');
+    for (const eachBtn of btnDeleteFav) {
+        eachBtn.addEventListener('click', handleClickBtnDelete);
+    };
+}
+
+
 const loadFavoritesFromStorage = () => {
     const dataAnimesLS = localStorage.getItem('favoritesAnimesServer');
+
     if (dataAnimesLS){
         favAnimes = JSON.parse(dataAnimesLS);
+        console.log(favAnimes);
         renderFavoriteAnimes(favAnimes);
     }
 };
 
 loadFavoritesFromStorage();
+
+//La primera version de handleCLickFav que yo tenia
 
 function handleClickFav(event) {
     event.preventDefault();
@@ -38,25 +57,78 @@ function handleClickFav(event) {
     } else {
         favAnimes.splice(indexFavSelected, 1);
     };
-    
+    console.log(favAnimes);
     renderAnimes(animes);
     renderFavoriteAnimes(favAnimes);
     localStorage.setItem('favoritesAnimesServer', JSON.stringify(favAnimes));
-    listenerAnimeCards();
     
 }
 
-const listenerAnimeCards = () => {
-    const allAnimes = document.querySelectorAll('.js-anime');
-    for (const eachAnime of allAnimes) {
-        eachAnime.addEventListener('click', handleClickFav);
-    };
-};
+function handleClickBtnDelete(event) {
+    event.preventDefault();
+    const deleteBtnClicked = parseInt(event.target.dataset.id);
+    console.log(deleteBtnClicked);
+    const indexFavDelete = favAnimes.findIndex((animeDelete) => animeDelete.mal_id === deleteBtnClicked);
+    console.log(indexFavDelete);
+    favAnimes.splice(indexFavDelete, 1);
 
-const listenerDeleteBtn = () => {
-    const btnDeleteFav = document.querySelector('.js-btn-delete-fav');
-    btnDeleteFav.addEventListener('click', handleClickFav);
+    renderAnimes(animes);
+    renderFavoriteAnimes(favAnimes);
+    console.log(favAnimes);
+    localStorage.setItem('favoritesAnimesServer', JSON.stringify(favAnimes));
+    
 }
+
+/*function handleClickFav(event) {
+    event.preventDefault();
+    const animeClicked = parseInt(event.currentTarget.id);
+    const animeSelected = animes.find((eachAnime) => eachAnime.mal_id === animeClicked);
+    const indexFavSelected = favAnimes.findIndex((anime) => anime.mal_id === animeClicked);
+
+    if (animeSelected) {
+        if(indexFavSelected === -1) {
+            favAnimes.push(animeSelected)
+        } else {
+            favAnimes.splice(indexFavSelected, 1);
+        }
+    } else {
+        const animeSelectedFav = favAnimes.find((eachFavAnime) => eachFavAnime.mal_id === animeClicked);
+        if (animeSelectedFav) {
+            const indexFavSelected = favAnimes.findIndex((anime) => anime.mal_id === animeClicked)
+            favAnimes.splice(indexFavSelected, 1);
+        } else {
+            console.error ('no se encontró')
+        }
+    }
+*/
+  /*  if(!animeSelected) {
+       const animeSelectedFav = favAnimes.find((eachFavAnime) => eachFavAnime.mal_id === animeClicked);
+
+        if(animeSelectedFav) {
+            favAnimes.splice(indexFavSelected, 1);
+            console.log('Eliminando de favoritos:', animeSelectedFav);
+        }
+
+    } else {
+
+        if (indexFavSelected === -1) {
+            console.log('Añadiendo a favoritos:', animeSelected);
+            favAnimes.push(animeSelected);
+        } else {
+        favAnimes.splice(indexFavSelected, 1);
+        console.log('Eliminando de favoritos:', animeSelected);
+        }
+    };
+   
+    renderAnimes(animes);
+    renderFavoriteAnimes(favAnimes);
+    localStorage.setItem('favoritesAnimesServer', JSON.stringify(filteredFavAnimes));
+    listenerAnimeCards();
+    
+}
+ */
+
+
 
 //Pintar la búsqueda
 
@@ -87,19 +159,22 @@ function renderAnimes(searchAnimes) {
         }
         listenerAnimeCards();
         
+        
     }
 }
 
+//Pintar los favoritos
 function renderFavoriteAnimes(favorites) {
     
     favoriteAnimes.innerHTML = '';
 
     for (const favoriteAnime of favorites) {
-        
+
         if(favoriteAnime.images.jpg.image_url === "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png") {
+            
             favoriteAnimes.innerHTML += 
-                `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
-                    <button class="btn-delete-fav js-btn-delete-fav">X</button>
+                `<li id="${favoriteAnime.mal_id}" class="animes">
+                    <button class="btn-delete-fav js-btn-delete-fav" data-id="${favoriteAnime.mal_id}">X</button>
                     <article  class=" fav-anime">
                         <h3 class="anime-title">${favoriteAnime.title}</h3>
                         <img src="https://placehold.co/120x180" alt="${favoriteAnime.title}" class="image-animes"/>
@@ -107,8 +182,8 @@ function renderFavoriteAnimes(favorites) {
                 </li>`
         } else {
             favoriteAnimes.innerHTML += 
-                `<li id="${favoriteAnime.mal_id}" class="animes js-anime">
-                    <button class="btn-delete-fav js-btn-delete-fav">X</button>
+                `<li id="${favoriteAnime.mal_id}" class="animes">
+                    <button class="btn-delete-fav js-btn-delete-fav" data-id="${favoriteAnime.mal_id}">X</button>
                         <article class=" fav-anime">
                         <h3 class="anime-title">${favoriteAnime.title}</h3>
                         <img src="${favoriteAnime.images.jpg.image_url}" alt="${favoriteAnime.title}" class="image-animes"/>
@@ -117,6 +192,8 @@ function renderFavoriteAnimes(favorites) {
         }
 
         localStorage.setItem('favoritesAnimesServer', JSON.stringify(favAnimes));
+        
+        listenerDeleteBtn();
         
     }  
     
@@ -136,38 +213,15 @@ function resetFavorites() {
 
 resetFavorites();
 
-//Llamada a la API
 
-/* if (totalPages === 1) {
-    handleSearch;
-} else {
-    handleSearchPages;
-}
-
-*/
-//Esta es mi funcion de handleSearch sin lo de la paginacion
-
-/*function handleSearch(event){
-    event.preventDefault();
-    const inputValue = input.value.toLowerCase().trim();
-    fetch(`https://api.jikan.moe/v4/anime?q=${inputValue}`)
-    .then((response) => response.json())
-    .then((data) => {
-        animes = data.data;
-        renderAnimes(animes);
-        localStorage.setItem('animesServer', JSON.stringify(animes));
-    });
-}
- */   
-
-//Esto es lo que me ha dicho GPT para lo de la paginacion:
+//Buscar
 function handleSearch(event){
     event.preventDefault();
     const inputValue = input.value.toLowerCase().trim();
     fetchAnimes(inputValue, 1);
 }
 
-
+//Petición a la API
 function fetchAnimes(query, page) {
 
     let url = `https://api.jikan.moe/v4/anime?q=${query}`
@@ -194,6 +248,7 @@ function fetchAnimes(query, page) {
     })
 }
 
+//Botones next y prev
 function updatePaginationButtons() {
 
     if(currentPage === 1) {
@@ -208,11 +263,9 @@ function updatePaginationButtons() {
         btnNextPage.disabled = false;
     }
 
-    //Esto es lo que tenia antes de ahcer estos cambios con la page de las narices
-    // btnPrevPage.disabled = currentPage === 1;
-    // btnNextPage.disabled = currentPage === totalPages;
 }
 
+//Navegación next page
 function goToNextPage() {
     if (currentPage < totalPages) {
         currentPage++;
@@ -221,6 +274,7 @@ function goToNextPage() {
     }
 }
 
+//Navegación prev page
 function goToPrevPage() {
     if (currentPage > 1) {
         currentPage--;
@@ -244,11 +298,10 @@ function handleReset () {
     favoriteAnimes.innerHTML = '';
     animes = [];
     favAnimes = [];
-    //currentPage = 1;
     localStorage.removeItem('favoritesAnimesServer');
     localStorage.removeItem('animesServer');
     renderAnimes(animes);
-    renderFavoriteAnimes(favAnimes);
+    renderFavoriteAnimes(favAnimes);    
 
 }
 
