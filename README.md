@@ -10,7 +10,7 @@ La información para llevar a cabo el proyecto se obtiene de la API pública **J
 * Favoritos: Puedes agregar los animes a favoritos y verlos en una columna exclusiva de los elementos favoritos.
 * Almacenamiento: Los favoritos se almacenan en el localStorage para que al hacer otra búsqueda o reiniciar la página no se pierda lo marcado.
 * Resetear: Existe la opción de resetear la columna de favoritos exclusivamente o de resetear la página por completo, incluyendo el input de búsqueda y la columna de resultados.
-* Paginación: *Actualmente en desarrollo.* Si la información que devuelve la API tiene más de una página, se pueden navegar entre ellas.
+* Paginación: Si la información que devuelve la API tiene más de una página, se pueden navegar entre ellas.
 
 ### Funcionalidad
 1. Buscar animes: Al ingresar un nombre en el input de búsqueda y clicar sobre el botón **buscar**, se realiza la solicitud a la API de Jikan. Los resultados se muestran en la sección de *resultados* con el título y la imagen del anime.
@@ -18,6 +18,7 @@ La información para llevar a cabo el proyecto se obtiene de la API pública **J
 3. Eliminar de favoritos. Existen dos opciones para eliminar un anime de *favoritos*. La primera es clicando en el botón de la **X** que aparece al lado de la imagen del anime en la columna de favoritos, y la otra es clicando sobre el anime en la columna de búsqueda. Es decir, al igual que al hacer click en la columna de búsqueda se añadía a favoritos, si hacemos click una vez más se elimina. No solo se elimina de la columna de favoritos, sino que también vuelve a su estilo inicial, sin el fondo y el borde resaltados, propio de los elementos marcados como favoritos.
 4. Almacenamiento. Cuando guardamos los elementos en favoritos, se guarda la información en el loclStorage, con el fin de que al hacer otra búsqueda o vovler a cargar la página, no se pierdan los elementos seleccionados. Este almacenamiento se va actualizando según se añaden o se eliminan los animes de favoritos. 
 5. Resetear los favoritos y la página. Existe un botón de **Reset favoritos** que sirve para borrar todos los favoritos de golpe. Como ocurría antes, esta información se actualiza en el localStorage para que en ese caso no aparezca ningún favorito al recargar la página. Así mismo, existe un botón de **Reset** cuya función es la de resetear la página al completo. Se vacían tanto las columnas de favoritos y búsqueda como el input de búsqueda. La información también se elimina del localStorage para que la página quede totalmente limpia.
+6. Paginación: Si la API nos devuelve más de un ahoja con información, se activan los botones que permiten la navegación entre páginas. Si estás en la primera página el botón de anterior aparecerá desactivado y si, por el contrario, estás en la última página, el botón de siguiente aparecerá desactivado.
 
 ### Estructura del proyecto
 Para llevar a cabo el proyecto hemos utilizado el Adalab Web Starter Kit, que define una estructura de proyecto concreta.
