@@ -19,9 +19,15 @@ let totalPages = 1;
 const listenerAnimeCards = () => {
     const allAnimes = document.querySelectorAll('.js-anime');
     for (const eachAnime of allAnimes) {
-        eachAnime.addEventListener('click', handleClickFav);
+        eachAnime.addEventListener('click', consoleName);
     };
 };
+
+function consoleName (event) {
+    const cardId = parseInt(event.currentTarget.id);
+    const cardSelected = animes.find((eachCard) => eachCard.mal_id === cardId);
+    console.log(cardSelected.title);
+}
 
 const listenerDeleteBtn = () => {
     const btnDeleteFav = document.querySelectorAll('.js-btn-delete-fav');
@@ -90,12 +96,15 @@ function renderAnimes(searchAnimes) {
         const findFavAnime = favAnimes.find((animeFav) => animeFav.mal_id === anime.mal_id);
         let css = findFavAnime ? "favorite" : '';
 
+        let airing = anime.airing ? '<a href="${data.url}">Más detalles</a>' : '<p>No se está transmitiendo</p>'
+
         if(anime.images.jpg.image_url === "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png") {
             listAnimes.innerHTML += 
                 `<li id="${anime.mal_id}" class="${css} animes js-anime">
                     <article>
                         <h3 class="anime-title">${anime.title}</h3>
                         <img src="https://placehold.co/120x180" alt="${anime.title}" class="image-animes"/>
+                        ${airing}
                     </article>
                 </li>`
         } else {
@@ -104,6 +113,7 @@ function renderAnimes(searchAnimes) {
                     <article>
                         <h3 class="anime-title">${anime.title}</h3>
                         <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="image-animes"/>
+                        ${airing}
                     </article>
                 </li>`
         }
@@ -249,6 +259,7 @@ function handleReset () {
     favAnimes = [];
     localStorage.removeItem('favoritesAnimesServer');
     localStorage.removeItem('animesServer');
+
     renderAnimes(animes);
     renderFavoriteAnimes(favAnimes);    
 
